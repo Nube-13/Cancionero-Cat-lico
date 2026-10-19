@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6ef">
+  <meta name="description" content="Cancionero católico digital: encuentra cantos, consulta momentos litúrgicos y transpón sus acordes.">
+  <title>Cánticos · Cancionero católico</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="songs.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./" aria-label="Cánticos: inicio">
+        <span class="brand-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3.5v21M7.6 10.5H20.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M5 19.5c2.7-1.7 5.7-2.4 9-2.4s6.3.7 9 2.4M7.5 23c2-.8 4.2-1.2 6.5-1.2s4.5.4 6.5 1.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-name">cánticos<span class="brand-dot">.</span><small>CANCIONERO CATÓLICO</small></span>
+      </a>
+      <nav class="header-nav" aria-label="Navegación">
+        <a href="#explorar">Explorar cantos</a>
+        <a href="#acerca-de">Acerca del cancionero</a>
+      </nav>
+      <span class="header-pill"><span class="status-dot"></span>Proyecto abierto</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <p class="eyebrow"><span class="eyebrow-line"></span> PARA CANTAR, ORAR Y CELEBRAR</p>
+        <h1 id="hero-title">Un canto para<br><em>cada momento</em> de fe.</h1>
+        <p class="hero-lead">Encuentra los cantos que necesitas, explora el calendario litúrgico y adapta los acordes a tu voz o instrumento.</p>
+        <a class="hero-action" href="#explorar">Explorar el cancionero <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="art-halo art-halo-one"></span><span class="art-halo art-halo-two"></span>
+        <svg viewBox="0 0 360 340" class="hero-illustration" role="presentation" fill="none">
+          <circle cx="178" cy="168" r="117" stroke="currentColor" stroke-opacity=".15"/>
+          <circle cx="178" cy="168" r="84" stroke="currentColor" stroke-opacity=".15"/>
+          <path d="M180 53V219M138 106H222" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          <path d="M69 245c30-22 66-33 109-33s80 11 113 33M89 266c28-14 57-21 89-21s62 7 91 21" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          <path d="m81 92 6 8 10 1-7 7 2 10-11-5-9 5 1-10-7-7 10-1 5-8ZM280 124l5 7 8 1-6 6 2 8-9-4-7 4 1-8-6-6 8-1 4-7Z" fill="currentColor" fill-opacity=".35"/>
+          <path d="M266 65c-5 13-4 27 4 39 8-12 9-26 4-39" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span class="art-caption">♫ &nbsp; LA FE TAMBIÉN SE CANTA</span>
+      </div>
+    </section>
+
+    <section id="explorar" class="workspace container" aria-labelledby="explore-heading">
+      <div class="section-heading">
+        <div><p class="eyebrow">TU BIBLIOTECA MUSICAL</p><h2 id="explore-heading">Explora los cantos</h2></div>
+        <span id="libraryCount" class="total-count" aria-live="polite"></span>
+      </div>
+
+      <div class="search-row">
+        <label class="search-field" for="searchInput">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m16.5 16.5 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <input id="searchInput" type="search" placeholder="Buscar una canción por título, letra o etiqueta…" autocomplete="off" aria-label="Buscar canciones">
+          <span class="kbd-hint">⌕</span>
+        </label>
+        <button id="favoritesFilter" class="favorite-filter" type="button" aria-pressed="false"><span aria-hidden="true">♡</span> Mis favoritas</button>
+      </div>
+      <div class="filter-row" aria-label="Filtros de canciones">
+        <div class="category-tabs" id="categoryTabs" role="group" aria-label="Tipo de canción">
+          <button type="button" class="category-tab active" data-category="todas" aria-pressed="true">Todos</button>
+          <button type="button" class="category-tab" data-category="misa" aria-pressed="false">Cantos de misa</button>
+          <button type="button" class="category-tab" data-category="alabanza" aria-pressed="false">Alabanzas</button>
+          <button type="button" class="category-tab" data-category="adoracion" aria-pressed="false">Adoración</button>
+          <button type="button" class="category-tab" data-category="mariano" aria-pressed="false">Marianos</button>
+        </div>
+        <div class="select-filters">
+          <label class="sr-only" for="momentFilter">Momento litúrgico</label>
+          <select id="momentFilter"><option value="">Todos los momentos</option></select>
+          <label class="sr-only" for="seasonFilter">Tiempo litúrgico</label>
+          <select id="seasonFilter"><option value="">Todos los tiempos</option></select>
+        </div>
+      </div>
+
+      <div class="library-layout" id="libraryLayout">
+        <aside class="song-library" aria-label="Lista de canciones">
+          <div class="library-list-header"><span id="resultCount">Cantos disponibles</span><span class="list-ornament">✦</span></div>
+          <div id="songList" class="song-list"></div>
+        </aside>
+        <section class="song-detail" id="songDetail" aria-label="Canción seleccionada" aria-live="polite">
+          <div class="detail-placeholder">Elige una canción de la lista para ver su letra y acordes.</div>
+        </section>
+      </div>
+      <p class="filter-note">Las etiquetas son orientativas. Verifica siempre que el canto sea apropiado para el momento de la celebración y las normas litúrgicas locales.</p>
+    </section>
+
+    <section class="about-section" id="acerca-de">
+      <div class="container about-inner"><div><p class="eyebrow">UN PROYECTO QUE CRECE</p><h2>Una biblioteca para compartir la música de nuestra fe.</h2></div><p>Este cancionero es una primera versión de muestra: puedes incorporar tus propias canciones, corregir etiquetas y ampliar el repertorio. Los favoritos se guardan en este dispositivo.</p></div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><strong>cánticos<span class="brand-dot">.</span></strong><span>Hecho con dedicación · Cancionero católico digital</span><span>Los cantos publicados deben contar con los permisos necesarios.</span></div></footer>
+</body>
+</html>
