@@ -156,3 +156,19 @@ h2 {font-size: clamp(29px, 3vw, 41px); letter-spacing: -.8px; line-height: 1.18;
   body {background: white;}.site-header, .hero, .section-heading, .search-row, .filter-row, .song-library, .about-section, .site-footer, .filter-note, .player-toolbar, .detail-bottom, .back-mobile, .heart-button {display: none !important;}
   .container {max-width: none; padding: 0;}.workspace {padding: 0;}.library-layout {display: block;}.song-detail {display: block !important; border: 0; box-shadow: none;}.detail-header, .score {padding: 0 0 20px;}.score {min-height: 0;}.score-section {break-inside: avoid;}.song-line {break-inside: avoid;}
 }
+
+/* Repertorio organizado por MOMENTOS Y OCASIONES */
+.filter-row {align-items: flex-end; justify-content: flex-start; gap: 10px 18px;}
+.moment-filter-block {flex: 1 1 100%; min-width: 0;}
+.filter-heading {font-size: 11px; letter-spacing: .7px; font-weight: 700; color: var(--forest); margin: 0 0 8px 3px;}
+.category-tabs {gap: 6px;}
+.category-tab {background: #f0f1e9; border: 1px solid #e1e5db;}
+.category-tab.active {border-color: var(--forest);}
+.select-filters {flex: 1 1 100%;}
+.select-filters select {max-width: none; min-width: 170px;}
+@media (max-width: 670px) {
+  .category-tabs {flex-wrap: nowrap; overflow-x: auto; padding-bottom: 7px; scrollbar-width: thin;}
+  .category-tab {flex: 0 0 auto; white-space: nowrap;}
+  .select-filters {display: flex; flex-wrap: wrap; width: 100%;}
+  .select-filters select {flex: 1 1 145px; min-width: 0;}
+}

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f6ef">
-  <meta name="description" content="Cancionero católico digital: encuentra cantos, consulta momentos litúrgicos y transpón sus acordes.">
+  <meta name="description" content="Cancionero católico digital: busca por momentos de uso, consulta letras y transpón acordes.">
   <title>Cánticos · Cancionero católico</title>
   <link rel="stylesheet" href="styles.css">
   <script src="songs.js" defer></script>
@@ -32,7 +32,7 @@
       <div class="hero-content">
         <p class="eyebrow"><span class="eyebrow-line"></span> PARA CANTAR, ORAR Y CELEBRAR</p>
         <h1 id="hero-title">Un canto para<br><em>cada momento</em> de fe.</h1>
-        <p class="hero-lead">Encuentra los cantos que necesitas, explora el calendario litúrgico y adapta los acordes a tu voz o instrumento.</p>
+        <p class="hero-lead">Encuentra cantos para cada celebración, oración o encuentro, y adapta los acordes a tu voz o instrumento.</p>
         <a class="hero-action" href="#explorar">Explorar el cancionero <span aria-hidden="true">↗</span></a>
       </div>
       <div class="hero-art" aria-hidden="true">
@@ -51,7 +51,7 @@
 
     <section id="explorar" class="workspace container" aria-labelledby="explore-heading">
       <div class="section-heading">
-        <div><p class="eyebrow">TU BIBLIOTECA MUSICAL</p><h2 id="explore-heading">Explora los cantos</h2></div>
+        <div><p class="eyebrow">TU REPERTORIO PARA CADA OCASIÓN</p><h2 id="explore-heading">Explora los cantos</h2></div>
         <span id="libraryCount" class="total-count" aria-live="polite"></span>
       </div>
 
@@ -64,15 +64,21 @@
         <button id="favoritesFilter" class="favorite-filter" type="button" aria-pressed="false"><span aria-hidden="true">♡</span> Mis favoritas</button>
       </div>
       <div class="filter-row" aria-label="Filtros de canciones">
-        <div class="category-tabs" id="categoryTabs" role="group" aria-label="Tipo de canción">
-          <button type="button" class="category-tab active" data-category="todas" aria-pressed="true">Todos</button>
-          <button type="button" class="category-tab" data-category="misa" aria-pressed="false">Cantos de misa</button>
-          <button type="button" class="category-tab" data-category="alabanza" aria-pressed="false">Alabanzas</button>
-          <button type="button" class="category-tab" data-category="adoracion" aria-pressed="false">Adoración</button>
-          <button type="button" class="category-tab" data-category="mariano" aria-pressed="false">Marianos</button>
+        <div class="moment-filter-block">
+          <p class="filter-heading">Filtrar por momento u ocasión</p>
+          <div class="category-tabs" id="momentTabs" role="group" aria-label="Momento u ocasión">
+            <button type="button" class="category-tab active" data-moment="" aria-pressed="true">Todos</button>
+            <button type="button" class="category-tab" data-moment="Entrada" aria-pressed="false">Entrada</button>
+            <button type="button" class="category-tab" data-moment="Ofertorio" aria-pressed="false">Ofertorio</button>
+            <button type="button" class="category-tab" data-moment="Comunión" aria-pressed="false">Comunión</button>
+            <button type="button" class="category-tab" data-moment="Salida" aria-pressed="false">Salida</button>
+            <button type="button" class="category-tab" data-moment="Virgen María" aria-pressed="false">Virgen María</button>
+            <button type="button" class="category-tab" data-moment="Adoración" aria-pressed="false">Adoración</button>
+            <button type="button" class="category-tab" data-moment="Alabanza" aria-pressed="false">Alabanza</button>
+          </div>
         </div>
         <div class="select-filters">
-          <label class="sr-only" for="momentFilter">Momento litúrgico</label>
+          <label class="sr-only" for="momentFilter">Elegir cualquier momento u ocasión</label>
           <select id="momentFilter"><option value="">Todos los momentos</option></select>
           <label class="sr-only" for="seasonFilter">Tiempo litúrgico</label>
           <select id="seasonFilter"><option value="">Todos los tiempos</option></select>
@@ -88,11 +94,11 @@
           <div class="detail-placeholder">Elige una canción de la lista para ver su letra y acordes.</div>
         </section>
       </div>
-      <p class="filter-note">Las etiquetas son orientativas. Verifica siempre que el canto sea apropiado para el momento de la celebración y las normas litúrgicas locales.</p>
+      <p class="filter-note">Los momentos y ocasiones son etiquetas orientativas: verifica que cada canto sea adecuado para la celebración o encuentro.</p>
     </section>
 
     <section class="about-section" id="acerca-de">
-      <div class="container about-inner"><div><p class="eyebrow">UN PROYECTO QUE CRECE</p><h2>Una biblioteca para compartir la música de nuestra fe.</h2></div><p>Este cancionero es una primera versión de muestra: puedes incorporar tus propias canciones, corregir etiquetas y ampliar el repertorio. Los favoritos se guardan en este dispositivo.</p></div>
+      <div class="container about-inner"><div><p class="eyebrow">UN PROYECTO QUE CRECE</p><h2>Una biblioteca para compartir la música de nuestra fe.</h2></div><p>Este cancionero empieza con una primera canción importada de un documento: puedes agregar muchas más, asignar varios momentos y ampliar el repertorio. Los favoritos se guardan en este dispositivo.</p></div>
     </section>
   </main>
   <footer class="site-footer"><div class="container footer-inner"><strong>cánticos<span class="brand-dot">.</span></strong><span>Hecho con dedicación · Cancionero católico digital</span><span>Los cantos publicados deben contar con los permisos necesarios.</span></div></footer>

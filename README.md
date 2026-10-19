@@ -1,102 +1,64 @@
-# Cánticos · Cancionero católico digital
+# Cánticos · Cancionero católico digital (actualización 2)
 
-El nombre **Cánticos** y los colores verde/salvia son provisionales; podemos personalizar el nombre, el logo y la paleta para tu comunidad.
+Esta es la versión personalizada para **cantos por momentos y ocasiones**; no está limitada a la misa. Utiliza GitHub Pages, sin pago, servidor adicional ni base de datos.
 
-Esta es una **plantilla de sitio web estático**, lista para GitHub Pages. No requiere pago, base de datos, instalación de programas ni frameworks.
+## Qué cambiamos
 
-## ¿Qué hace?
+- Los filtros principales ahora son **momentos y ocasiones**, no tipos exclusivos de misa.
+- Aparece **Virgen María** junto a Entrada, Ofertorio, Comunión, Salida, Adoración y Alabanza.
+- El menú **Todos los momentos** también contiene Señor, ten piedad, Gloria, Salmo responsorial, Aleluya, Santo, Cordero de Dios, Encuentro de oración y Otros; puedes sumar más opciones en `songs.js`.
+- El primer canto real de la biblioteca es **Una espiga dorada**, importado de tu `.docx`, con 4 estrofas, etiqueta **Comunión**, tonalidad **G (Sol mayor)** y transposición en semitonos.
+- Los cinco cantos ficticios de prueba de la versión anterior se han quitado para que tu biblioteca empiece con **tu primer canto**.
 
-- Busca por título, palabras de la letra y etiquetas.
-- Filtra por tipo de canción, momento y tiempo litúrgico.
-- Muestra la letra con acordes encima de las palabras.
-- Transpone los acordes **un semitono por clic** (incluye acordes menores, séptimas y bajos alternativos: `Am`, `F#m7`, `D/F#`).
-- Permite mostrar/ocultar acordes, ampliar la letra e imprimirla.
-- Guarda favoritos **en el navegador del dispositivo**, no en cuentas compartidas.
-- Funciona en computadoras y celulares.
+## Actualizar la página ya publicada en GitHub
 
-## PASO 1. Probar la página en tu computadora
+Tu repositorio es `Nube-13/Cancionero-Cat-lico`. No crees otro ni cambies la configuración de Pages.
 
-Descomprime la carpeta y haz doble clic en `index.html`. La web ya funciona sin configuración adicional.
+1. Descomprime `cancionero-catolico-actualizado.zip` en tu equipo.
+2. Entra en tu repositorio: https://github.com/Nube-13/Cancionero-Cat-lico
+3. Haz clic en **Add file → Upload files**.
+4. Arrastra los archivos **que están dentro de la carpeta descomprimida** (no la carpeta ni el ZIP) hasta la raíz del repositorio:
+   - `index.html`
+   - `styles.css`
+   - `app.js`
+   - `songs.js`
+   - `README.md`
+   - `.nojekyll` (opcional si ya existe)
+5. Si GitHub te pide confirmar que se reemplazan archivos con el mismo nombre, confírmalo.
+6. Pulsa **Commit changes**. Espera unos minutos a que termine la publicación automática.
+7. Abre https://nube-13.github.io/Cancionero-Cat-lico/ y recarga con **Ctrl + F5** si ves la versión anterior.
 
-## PASO 2. Publicar GRATIS en GitHub Pages
+> GitHub no acepta carpetas vacías ni el archivo ZIP como página. **Los archivos deben quedar al mismo nivel** en la raíz. Si GitHub no te permite reemplazar con Upload files, edita los archivos existentes desde el ícono del lápiz o usa GitHub Desktop para sincronizar la carpeta.
 
-1. Entra en https://github.com/ e inicia sesión o crea una cuenta.
-2. Haz clic en **New repository**.
-3. Nombra el repositorio `cancionero-catolico`, selecciona **Public** y **Create repository**.
-4. En el repositorio, haz clic en **Add file → Upload files** (si aún está vacío, usa el enlace **uploading an existing file**).
-5. **Sube todos los archivos DESCOMPRIMIDOS**, directamente al repositorio: `index.html`, `styles.css`, `app.js`, `songs.js`, `README.md` y, si tu sistema permite mostrar archivos ocultos, `.nojekyll`. NO subas únicamente el ZIP y NO guardes los archivos dentro de una carpeta adicional.
-6. Guarda con **Commit changes**.
-7. Ve a **Settings → Pages → Build and deployment**.
-8. En **Source**, elige **Deploy from a branch**; selecciona `main` y `/ (root)`; presiona **Save**.
-9. Abre la URL que aparecerá en Pages, normalmente `https://TU-USUARIO.github.io/cancionero-catolico/`.
+## Cómo agregar el siguiente canto
 
-Si cambias el nombre del repositorio, cambiará la parte final de tu enlace. GitHub indica que la primera publicación puede tardar hasta 10 minutos.
+Abre `songs.js` en GitHub, pulsa el lápiz y revisa `window.CANCIONERO_SONGS`. Cada canción es un objeto dentro de `[...]`.
 
-## PASO 3. Agregar canciones
+- `id`: identificador único, por ejemplo `ven-espiritu-santo`.
+- `title`: título de la canción.
+- `author`: autor conocido o «Autor no indicado».
+- `moments`: momentos/ocasiones. Puedes usar **varios**: `["Entrada", "Virgen María"]`.
+- `seasons`: tiempo litúrgico si se conoce; `[]` si aún no se ha asignado.
+- `key`: tonalidad original en notación internacional, `G`=Sol, `D`=Re, `C`=Do.
+- `sections`: estrofas y líneas, colocando los acordes como `[G]`, `[D7]`, `[Bbm]`.
 
-Abre `songs.js`. Dentro de `window.CANCIONERO_SONGS = [ ... ];` encontrarás los cantos de muestra. Duplica un objeto de canción completo (desde `{` hasta `},`) y cambia los datos.
+La canción **Una espiga dorada** fue transcrita conservando la letra, la estructura y **todos los acordes del Word, incluido Bbm en la última estrofa**. Como el Word alinea los acordes con espacios en tipografía proporcional, su posición sobre cada palabra es **aproximada** y conviene revisarla cantando antes de usarla en público.
 
-```js
-{
-  id: "mi-nueva-cancion",            // único, sin espacios ni tildes
-  title: "Mi nueva canción",
-  author: "Nombre del autor / fuente",
-  category: "misa",                   // misa, alabanza, adoracion, mariano
-  moments: ["Entrada", "Salida"],     // una o varias etiquetas
-  seasons: ["Adviento"],              // una o varias etiquetas
-  key: "G",                           // tonalidad original
-  keywords: ["alegría", "asamblea"],
-  description: "Descripción opcional",
-  sections: [
-    { heading: "Estrofa 1", lines: [
-      "[G]Primera frase de la [D]canción",
-      "[Em]Segunda frase de [C]ejemplo"
-    ]},
-    { heading: "Estribillo", lines: [
-      "[C]Aquí empieza el estri[G]billo"
-    ]}
-  ]
-},
-```
+La transposición cambia automáticamente los acordes sin modificar la letra; no verifica si un acorde del documento es musicalmente correcto.
 
-Los acordes entre corchetes, como `[G]`, `[Am]`, `[F#m7]` o `[D/F#]`, **no aparecen entre corchetes en la web**: se muestran encima de la letra y se transponen automáticamente. Solo funcionan si las canciones están en este formato; las letras de Google Docs deben convertirse.
+### Lista de momentos
 
-### Editar las canciones desde GitHub (sin instalar programas)
+Edita `window.CANCIONERO_MOMENTS` al principio de `songs.js` para añadir o renombrar momentos. El menú desplegable mostrará todas las nuevas opciones; los botones principales de acceso rápido se modifican en `index.html` si deseas añadir otro botón visible.
 
-Abre tu repositorio, haz clic en `songs.js`, después en el ícono de lápiz **Edit this file**. Edita las canciones, usa **Commit changes** y la web se actualizará al publicarse el cambio.
+## Nota de derechos de autor
 
-### Organización aconsejada
+El documento Word aportado por la usuaria permite preparar técnicamente la importación, pero **no acredita por sí solo permiso para publicar en la web**. Antes de hacer pública la letra completa y su armonización, comprueba la titularidad, licencia o autorización de reproducción. Los repositorios públicos de GitHub Pages muestran el contenido a cualquiera.
 
-- **category**: `misa`, `alabanza`, `adoracion`, `mariano`. Se pueden crear nuevas categorías ampliando también el menú en `index.html` y el objeto `categories` en `app.js`.
-- **moments**: `Entrada`, `Señor, ten piedad`, `Gloria`, `Salmo responsorial`, `Aleluya`, `Ofertorio`, `Santo`, `Cordero de Dios`, `Comunión`, `Salida`, `Adoración`, `Encuentro de oración`… **La etiqueta no significa que el canto sea litúrgicamente apto**: revisa las normas de la celebración y las orientaciones de tu parroquia.
-- **seasons**: `Adviento`, `Navidad`, `Cuaresma`, `Pascua`, `Tiempo Ordinario`, `Todo el año`.
+## Archivos
 
-## ¿Y mis documentos de Google Drive?
-
-La primera versión **no se sincroniza automáticamente** con Drive; es gratuita, simple y no exige credenciales. El plan de migración sería:
-
-1. Seleccionar una carpeta o exportar los documentos de Google Drive.
-2. Convertir sus títulos, letras y acordes al formato de `songs.js`.
-3. Revisar las etiquetas de uso y la atribución.
-4. Sustituir los ejemplos en `songs.js` por los cantos autorizados.
-
-Más adelante es posible automatizar parte del proceso con Google Apps Script o un flujo que genere el catálogo, pero sería una fase distinta.
-
-## Importante sobre derechos de autor y privacidad
-
-Los cinco cantos iniciales son **textos originales creados solo como demostración**, no repertorio oficial de misa. Antes de publicar letras existentes, comprueba su licencia o pide permiso al titular. Que se cante en una parroquia o esté en Google Drive no implica permiso de publicación web.
-
-GitHub Pages en el plan gratuito requiere repositorios públicos; todo lo que subas al repositorio puede ser leído y copiado por otras personas. No añadas claves de acceso, datos privados ni documentos restringidos.
-
-## Estructura
-
-```
-index.html   - Página
-styles.css   - Diseño adaptable
-songs.js     - Canciones y etiquetas (editar aquí)
-app.js       - Buscador, filtros, acordes y favoritos
-.nojekyll    - Indica que no se requiere Jekyll
-README.md    - Instrucciones
-```
-
-Hecho para comenzar simple y crecer con el tiempo.
+`index.html` → estructura y botones visibles de la web.  
+`styles.css` → estilos y experiencia móvil.  
+`app.js` → búsqueda, filtros, favoritos, transposición.  
+`songs.js` → momentos, categorías disponibles y canciones.  
+`README.md` → estas instrucciones.  
+`.nojekyll` → compatibilidad sencilla con GitHub Pages.
