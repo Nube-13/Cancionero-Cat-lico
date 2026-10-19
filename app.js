@@ -91,7 +91,7 @@
       <button class="song-card ${s.id === state.currentId ? "selected" : ""}" type="button" data-action="select" data-id="${safe(s.id)}" aria-current="${s.id === state.currentId ? "true" : "false"}">
         <span class="song-card-top"><span class="card-category">${safe((s.moments || [])[0] || "Canto")}</span><span class="song-key">${safe(s.key)}</span></span>
         <span class="song-card-title">${safe(s.title)}</span>
-        <span class="song-card-moments">${safe((s.moments || []).join(" · "))}</span>
+        <span class="song-card-moments">${safe((s.moments || []).length ? s.moments.join(" · ") : "Sin clasificar")}</span>
         <span class="song-card-foot"><span>Ver letra y acordes →</span>${favorites.has(s.id) ? '<span class="mini-heart" aria-label="Favorita">♥</span>' : ""}</span>
       </button>`).join("") : '<div class="no-results"><span>♫</span><strong>No encontramos cantos</strong><p>Prueba otro título o cambia los filtros.</p><button type="button" data-action="clear-filters">Limpiar filtros</button></div>';
     renderDetail();
@@ -109,8 +109,8 @@
         <div class="detail-topline"><span class="label-top">Canción / Repertorio</span><button type="button" class="heart-button ${isFav ? "saved" : ""}" data-action="favorite" aria-label="${isFav ? "Quitar de favoritas" : "Guardar en favoritas"}" aria-pressed="${isFav}">${isFav ? "♥" : "♡"}</button></div>
         <h3>${safe(s.title)}</h3>
         <p class="author">${safe(s.author || "Autor no indicado")}</p>
-        <div class="tags">${(s.moments || []).map(tag => `<span class="tag moment-tag">${safe(tag)}</span>`).join("")}${(s.seasons || []).map(tag => `<span class="tag season-tag">${safe(tag)}</span>`).join("")}</div>
-        ${s.description ? `<p class="detail-description">${safe(s.description)}</p>` : ""}
+        <div class="tags">${(s.moments || []).length ? s.moments.map(tag => `<span class="tag moment-tag">${safe(tag)}</span>`).join("") : `<span class="tag moment-tag">Sin clasificar</span>`}${(s.seasons || []).map(tag => `<span class="tag season-tag">${safe(tag)}</span>`).join("")}${s.reviewStatus ? `<span class="tag status-tag">${safe(s.reviewStatus)}</span>` : ""}</div>
+        ${s.description ? `<p class="detail-description">${safe(s.description)}</p>` : ""}${s.capo ? `<p class="detail-description">Cejilla indicada: traste ${s.capo}. Los acordes visibles son los escritos en el documento.</p>` : ""}${s.sourcePageCount > 1 ? `<p class="source-notice">Se importó únicamente la primera página de este Word. Comprueba si alguna estrofa continúa en la página siguiente.</p>` : ""}${s.warnings?.some(w=>!w.startsWith("Varias páginas")) ? `<p class="source-notice">Importación automática pendiente de revisar: ${safe(s.warnings.filter(w=>!w.startsWith("Varias páginas")).join(" · "))}</p>` : ""}
       </div>
       <div class="player-toolbar">
         <div class="transpose"><span class="tool-label">TONALIDAD</span><button data-action="transpose-down" type="button" aria-label="Bajar medio tono">−</button><span class="current-key" aria-live="polite">${safe(prettyKey(s.key, state.shift, s.preferredAccidentals))}</span><button data-action="transpose-up" type="button" aria-label="Subir medio tono">+</button><button class="original-button" type="button" data-action="reset-tonality" ${state.shift === 0 ? "disabled" : ""}>Original</button></div>

@@ -220,3 +220,6 @@ h2 {font-size: clamp(29px, 3vw, 41px); letter-spacing: -.8px; line-height: 1.18;
   column-gap: calc(4px * var(--font-scale));
   row-gap: calc(16px * var(--font-scale));
 }
+
+.status-tag {background:#e8e2d4;color:#665938;border-color:#d9ccb8;}
+.source-notice {font-size:12px; line-height:1.6; color:#86632c; padding:10px 12px; background:#faf5e9; border-left:2px solid #dabd7a; border-radius:4px; margin-top:8px;}

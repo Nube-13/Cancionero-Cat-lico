@@ -1,30 +1,30 @@
-# Cánticos — acordes alineados como en Word
+# Cancionero católico · Importación masiva
 
-Esta versión del cancionero conserva **la ubicación horizontal de los acordes en el documento original**: cada acorde aparece justo encima de la letra donde entraba, sin empujar palabras hacia la derecha.
+Esta versión contiene **163 cantos** importados de **245 documentos Word**. Las copias con el mismo nombre ubicadas en varias carpetas se agruparon y conservaron sus etiquetas. La clasificación que falta quedó sin asignar; no se añadieron categorías por suposición.
 
-## Actualizar tu página de GitHub Pages
+## Publicar la actualización en GitHub Pages
 
-1. Descomprime el ZIP y abre tu repositorio `Nube-13/Cancionero-Cat-lico`.
-2. Ve a **Add file → Upload files**; arrastra los archivos `index.html`, `styles.css`, `songs.js`, `app.js`, `.nojekyll` (no el ZIP ni la carpeta contenedora).
-3. GitHub te preguntará si quieres reemplazar los archivos existentes; confirma los reemplazos.
-4. Pulsa **Commit changes**. Espera unos minutos y recarga tu página usando Ctrl+F5.
+1. Abre el repositorio `Nube-13/Cancionero-Cat-lico`.
+2. Si ya está publicada la versión anterior, sube **`index.html`, `styles.css`, `app.js` y `songs.js`** del ZIP. Es importante reemplazar los archivos antiguos por los nuevos.
+3. Pulsa **Commit changes**. Espera al despliegue y recarga tu web con `Ctrl+F5`.
+4. **No subas el ZIP**: descomprímelo antes. Los archivos deben estar en la raíz del repositorio.
+5. No necesitas tocar Settings > Pages si ya está funcionando.
 
-No necesitas configurar GitHub Pages de nuevo.
+## Importante: revisar antes de hacerlo público
 
-## Al agregar una canción en `songs.js`
+Esta es una **primera importación para validar**, no una transcripción garantizada al 100 %.
 
-Cada línea puede guardarse de dos formas:
+- Solo se extrajo la **primera página** de cada documento, según lo indicado; 70 documentos tienen páginas posteriores que pueden ser versiones diferentes o continuaciones del canto.
+- Los acordes se han colocado según la posición que tenían en el documento. Algunas alineaciones complejas o canciones con dos columnas todavía pueden requerir retoques.
+- Las notas declaradas en los encabezados y las posiciones originales de los acordes se han conservado en lo posible. En algunas canciones, el nombre del archivo y la tonalidad de los acordes no coinciden: revisa esos casos antes de considerarlos definitivos.
+- Hay cuatro documentos donde no se detectaron acordes.
+- **73 canciones** siguen sin momento asignado para no inventar una categoría.
+- Se marcaron todas como **Por revisar** desde el punto de vista de la importación; esto **no** implica que nunca las hayas cantado.
+- Ve a `INFORME_DE_REVISION.md` para ver todos los casos.
+- **Derechos de autor:** si el sitio es público, las letras también se publican. Verifica permisos antes de difundir canciones protegidas.
 
-**Opción fácil (ancla el acorde en la siguiente sílaba):** `"Una [G]espiga dorada por el sol,"`
+## Añadir y corregir canciones
 
-**Opción fiel al Word (posición precisa):**
+`songs.js` guarda las canciones: título, momento(s), tiempo(s), acorde base, secciones y acordes `{at, name}` donde `at` señala el carácter en el que entra cada acorde. Así, los acordes se mueven al transponer pero su posición respecto a la letra no cambia.
 
-```js
-{ text: "Una espiga dorada por el sol,", chords: [{ at: 6, name: "G" }] }
-```
-
-`at` es la posición del carácter al que va anclado el acorde, contando desde 0. Las estrofas del ejemplo ya están ajustadas a partir de la posición de cada acorde en el Word recibido.
-
-Usa `+` y `−` para transponer por semitonos, `Original` para volver a Sol, y **Ocultar acordes** si quieres ver solo la letra.
-
-> Publica textos de canciones protegidas únicamente si cuentas con permiso o licencia adecuada.
+Si editas posteriormente una sola canción, basta subir nuevamente `songs.js` a GitHub. También puedes enviarme otro ZIP con nuevos documentos para preparar la siguiente importación masiva.
