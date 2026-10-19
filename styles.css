@@ -172,3 +172,51 @@ h2 {font-size: clamp(29px, 3vw, 41px); letter-spacing: -.8px; line-height: 1.18;
   .select-filters {display: flex; flex-wrap: wrap; width: 100%;}
   .select-filters select {flex: 1 1 145px; min-width: 0;}
 }
+
+/* Acordes directamente ENCIMA de la letra, como en los documentos Word.
+   El pin no consume anchura, la letra no salta y cada palabra se puede envolver
+   en teléfonos sin desplazar la posición del acorde. */
+.score { padding-top: 21px; padding-bottom: 28px; }
+.score-section { margin-bottom: 19px; }
+.score-section h4 { margin-bottom: 10px; }
+.song-line {
+  display: block;
+  margin: 0 0 3px;
+  min-height: 0;
+  padding: calc(15px * var(--font-scale)) 0 0;
+  line-height: 1.24;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(15px * var(--font-scale));
+  white-space: normal;
+  overflow-wrap: normal;
+}
+.song-line.hide-chords { padding-top: 0; margin: 0 0 3px; }
+.lyric-word { display: inline-block; white-space: nowrap; vertical-align: baseline; }
+.chord-pin { position: relative; width: 0; height: 0; display: inline-block; vertical-align: baseline; }
+.chord-name {
+  position: absolute;
+  left: 0;
+  bottom: calc(13px * var(--font-scale));
+  display: block;
+  min-height: 0;
+  margin: 0;
+  color: #ae5138;
+  font: 700 calc(12px * var(--font-scale))/1 Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+}
+@media (max-width: 670px) {
+  .score { padding: 18px 17px 24px; }
+  .score-section { margin-bottom: 17px; }
+  .song-line { margin-bottom: 4px; }
+}
+@media print { .score-section { margin-bottom: 14px; } .song-line { break-inside: avoid; } }
+
+/* Flexible two-row lyric layout: on narrow screens, leave room for the chord
+   above every wrapped word, without adding height to ordinary single lines. */
+.song-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: calc(4px * var(--font-scale));
+  row-gap: calc(16px * var(--font-scale));
+}

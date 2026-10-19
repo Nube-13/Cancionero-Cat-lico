@@ -13,7 +13,7 @@
   const loadFavorites = () => { try { return new Set(JSON.parse(localStorage.getItem("canticos-favorites") || "[]")); } catch (_) { return new Set(); } };
   const favorites = loadFavorites();
   function saveFavorites() { try { localStorage.setItem("canticos-favorites", JSON.stringify([...favorites])); } catch (_) {} }
-  function songText(s) { return [s.title, s.author, s.description, ...(s.keywords || []), ...(s.moments || []), ...(s.seasons || []), ...(s.sections || []).flatMap(x => (x.lines || []).map(line => line.replace(/\[[^\]]+\]/g, "")))].join(" "); }
+  function songText(s) { return [s.title, s.author, s.description, ...(s.keywords || []), ...(s.moments || []), ...(s.seasons || []), ...(s.sections || []).flatMap(x => (x.lines || []).map(line => typeof line === "string" ? line.replace(/\[[^\]]+\]/g, "") : (line.text || "")))].join(" "); }
   function filteredSongs() { return songs.filter(s =>
     (!state.moment || (s.moments || []).includes(state.moment)) &&
     (!state.season || (s.seasons || []).includes(state.season)) &&
@@ -34,20 +34,45 @@
   function transposeChord(chord, offset, preference) {
     return String(chord).split("/").map(x => transposePart(x, offset, preference)).join("/");
   }
-  function lineHtml(line, song) {
-    // En cada [acorde] se conserva el fragmento de texto al que pertenece.
-    const pattern = /\[([^\]]+)\]/g;
-    let pieces = [], cursor = 0, match, activeChord = null;
-    while ((match = pattern.exec(line)) !== null) {
-      if (match.index > cursor || activeChord !== null) pieces.push({ chord: activeChord, words: line.slice(cursor, match.index) });
-      activeChord = match[1];
-      cursor = pattern.lastIndex;
+  function decodeLine(line) {
+    // Support legacy ChordPro strings and precise Word-position objects.
+    if (typeof line !== "string") return { text: String(line.text || ""), chords: line.chords || [] };
+    const chords = [];
+    let text = "";
+    let last = 0;
+    for (const match of line.matchAll(/\[([^\]]+)\]/g)) {
+      text += line.slice(last, match.index);
+      chords.push({ at: text.length, name: match[1] });
+      last = match.index + match[0].length;
     }
-    pieces.push({ chord: activeChord, words: line.slice(cursor) });
-    return pieces.map(p => {
-      const chord = p.chord && state.showChords ? `<span class="chord-name">${safe(transposeChord(p.chord, state.shift, song.preferredAccidentals))}</span>` : '<span class="chord-name empty-chord"></span>';
-      return `<span class="chord-segment">${chord}<span class="lyric-part">${safe(p.words) || '&nbsp;'}</span></span>`;
-    }).join("");
+    return { text: text + line.slice(last), chords };
+  }
+  function lineHtml(line, song) {
+    const { text, chords } = decodeLine(line);
+    const parts = [];
+    // Group letters in words to preserve natural wrapping on mobile.
+    // The absolutely positioned chord pin does NOT push letters sideways.
+    const tokens = text.match(/\s+|\S+/gu) || [];
+    let index = 0;
+    for (const token of tokens) {
+      const start = index;
+      index += token.length;
+      if (/^\s+$/u.test(token)) continue;
+      const wordChords = chords.filter(c => c.at >= start && c.at < index).sort((a,b)=>a.at-b.at);
+      let wordHtml = "", pos = 0;
+      for (const c of wordChords) {
+        const charPos = Math.max(0, Math.min(token.length, c.at - start));
+        wordHtml += safe(token.slice(pos, charPos));
+        if (state.showChords) wordHtml += `<span class="chord-pin" aria-label="Acorde ${safe(transposeChord(c.name, state.shift, song.preferredAccidentals))}"><span class="chord-name">${safe(transposeChord(c.name, state.shift, song.preferredAccidentals))}</span></span>`;
+        pos = charPos;
+      }
+      wordHtml += safe(token.slice(pos));
+      parts.push(`<span class="lyric-word">${wordHtml}</span>`);
+    }
+    // Accommodate any chord anchored at line end.
+    const endChords = chords.filter(c=>c.at>=text.length);
+    if (endChords.length && state.showChords) parts.push(endChords.map(c=>`<span class="chord-pin"><span class="chord-name">${safe(transposeChord(c.name,state.shift,song.preferredAccidentals))}</span></span>`).join(""));
+    return parts.join("");
   }
   function createFilterOptions(select, items) {
     [...new Set(items)].sort((a, b) => a.localeCompare(b, "es")).forEach(value => {

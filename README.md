@@ -1,64 +1,30 @@
-# Cánticos · Cancionero católico digital (actualización 2)
+# Cánticos — acordes alineados como en Word
 
-Esta es la versión personalizada para **cantos por momentos y ocasiones**; no está limitada a la misa. Utiliza GitHub Pages, sin pago, servidor adicional ni base de datos.
+Esta versión del cancionero conserva **la ubicación horizontal de los acordes en el documento original**: cada acorde aparece justo encima de la letra donde entraba, sin empujar palabras hacia la derecha.
 
-## Qué cambiamos
+## Actualizar tu página de GitHub Pages
 
-- Los filtros principales ahora son **momentos y ocasiones**, no tipos exclusivos de misa.
-- Aparece **Virgen María** junto a Entrada, Ofertorio, Comunión, Salida, Adoración y Alabanza.
-- El menú **Todos los momentos** también contiene Señor, ten piedad, Gloria, Salmo responsorial, Aleluya, Santo, Cordero de Dios, Encuentro de oración y Otros; puedes sumar más opciones en `songs.js`.
-- El primer canto real de la biblioteca es **Una espiga dorada**, importado de tu `.docx`, con 4 estrofas, etiqueta **Comunión**, tonalidad **G (Sol mayor)** y transposición en semitonos.
-- Los cinco cantos ficticios de prueba de la versión anterior se han quitado para que tu biblioteca empiece con **tu primer canto**.
+1. Descomprime el ZIP y abre tu repositorio `Nube-13/Cancionero-Cat-lico`.
+2. Ve a **Add file → Upload files**; arrastra los archivos `index.html`, `styles.css`, `songs.js`, `app.js`, `.nojekyll` (no el ZIP ni la carpeta contenedora).
+3. GitHub te preguntará si quieres reemplazar los archivos existentes; confirma los reemplazos.
+4. Pulsa **Commit changes**. Espera unos minutos y recarga tu página usando Ctrl+F5.
 
-## Actualizar la página ya publicada en GitHub
+No necesitas configurar GitHub Pages de nuevo.
 
-Tu repositorio es `Nube-13/Cancionero-Cat-lico`. No crees otro ni cambies la configuración de Pages.
+## Al agregar una canción en `songs.js`
 
-1. Descomprime `cancionero-catolico-actualizado.zip` en tu equipo.
-2. Entra en tu repositorio: https://github.com/Nube-13/Cancionero-Cat-lico
-3. Haz clic en **Add file → Upload files**.
-4. Arrastra los archivos **que están dentro de la carpeta descomprimida** (no la carpeta ni el ZIP) hasta la raíz del repositorio:
-   - `index.html`
-   - `styles.css`
-   - `app.js`
-   - `songs.js`
-   - `README.md`
-   - `.nojekyll` (opcional si ya existe)
-5. Si GitHub te pide confirmar que se reemplazan archivos con el mismo nombre, confírmalo.
-6. Pulsa **Commit changes**. Espera unos minutos a que termine la publicación automática.
-7. Abre https://nube-13.github.io/Cancionero-Cat-lico/ y recarga con **Ctrl + F5** si ves la versión anterior.
+Cada línea puede guardarse de dos formas:
 
-> GitHub no acepta carpetas vacías ni el archivo ZIP como página. **Los archivos deben quedar al mismo nivel** en la raíz. Si GitHub no te permite reemplazar con Upload files, edita los archivos existentes desde el ícono del lápiz o usa GitHub Desktop para sincronizar la carpeta.
+**Opción fácil (ancla el acorde en la siguiente sílaba):** `"Una [G]espiga dorada por el sol,"`
 
-## Cómo agregar el siguiente canto
+**Opción fiel al Word (posición precisa):**
 
-Abre `songs.js` en GitHub, pulsa el lápiz y revisa `window.CANCIONERO_SONGS`. Cada canción es un objeto dentro de `[...]`.
+```js
+{ text: "Una espiga dorada por el sol,", chords: [{ at: 6, name: "G" }] }
+```
 
-- `id`: identificador único, por ejemplo `ven-espiritu-santo`.
-- `title`: título de la canción.
-- `author`: autor conocido o «Autor no indicado».
-- `moments`: momentos/ocasiones. Puedes usar **varios**: `["Entrada", "Virgen María"]`.
-- `seasons`: tiempo litúrgico si se conoce; `[]` si aún no se ha asignado.
-- `key`: tonalidad original en notación internacional, `G`=Sol, `D`=Re, `C`=Do.
-- `sections`: estrofas y líneas, colocando los acordes como `[G]`, `[D7]`, `[Bbm]`.
+`at` es la posición del carácter al que va anclado el acorde, contando desde 0. Las estrofas del ejemplo ya están ajustadas a partir de la posición de cada acorde en el Word recibido.
 
-La canción **Una espiga dorada** fue transcrita conservando la letra, la estructura y **todos los acordes del Word, incluido Bbm en la última estrofa**. Como el Word alinea los acordes con espacios en tipografía proporcional, su posición sobre cada palabra es **aproximada** y conviene revisarla cantando antes de usarla en público.
+Usa `+` y `−` para transponer por semitonos, `Original` para volver a Sol, y **Ocultar acordes** si quieres ver solo la letra.
 
-La transposición cambia automáticamente los acordes sin modificar la letra; no verifica si un acorde del documento es musicalmente correcto.
-
-### Lista de momentos
-
-Edita `window.CANCIONERO_MOMENTS` al principio de `songs.js` para añadir o renombrar momentos. El menú desplegable mostrará todas las nuevas opciones; los botones principales de acceso rápido se modifican en `index.html` si deseas añadir otro botón visible.
-
-## Nota de derechos de autor
-
-El documento Word aportado por la usuaria permite preparar técnicamente la importación, pero **no acredita por sí solo permiso para publicar en la web**. Antes de hacer pública la letra completa y su armonización, comprueba la titularidad, licencia o autorización de reproducción. Los repositorios públicos de GitHub Pages muestran el contenido a cualquiera.
-
-## Archivos
-
-`index.html` → estructura y botones visibles de la web.  
-`styles.css` → estilos y experiencia móvil.  
-`app.js` → búsqueda, filtros, favoritos, transposición.  
-`songs.js` → momentos, categorías disponibles y canciones.  
-`README.md` → estas instrucciones.  
-`.nojekyll` → compatibilidad sencilla con GitHub Pages.
+> Publica textos de canciones protegidas únicamente si cuentas con permiso o licencia adecuada.
